@@ -68,7 +68,7 @@ library(readr)
 
 fname <- 'data/DFP1_11122015 124700.csv'
 
-DF <- read.csv(
+Deposito <- read.csv(
   file = fname,
   stringsAsFactors = FALSE,
   sep = "\t"
@@ -79,22 +79,63 @@ DF <- read.csv(
 #### 3
 ```{r}
 
-DF$FECHA <- as.POSIXlt(
-  DF$FECHA,
+Deposito$FECHA <- as.POSIXlt(
+  Deposito$FECHA,
   format = "%d/%m/%Y",
   tz = "Europe/Madrid"
 )
 
-DF$Hora <- hms::as_hms(DF$Hora)
+Deposito$HORA <- hms::as_hms(Deposito$HORA)
 
+head(Deposito[c("FECHA", "HORA")])
+
+```
+#### 4
+```{r}
+
+save(
+  Deposito,
+  file = "./results/Deposito.RData"
+)
 ```
 
 ### 2.2 Inspección de los datos
 ```{r}
 
-names(DF)
-head(DF)
-str(DF)
+str(Deposito)
+head(Deposito)
+tail(Deposito)
+summary(Deposito)
+
 
 ```
+- str() lo imprime a texto como un resumen en la consola 
+- head() y tail() devulven las 5 primeras/ultmias filas del dataset como un nuevo dataset
+- summary() devuvle un conjunto de estadisticos de los datos
+
+## Ejercicio 3
+### 3.1 
+#### 1
+Lo cargo directamnte con readr no pide nada adicional:
+- **`Transaction`**: identificador de la compra, almacenado como numérico (`double`). Se repite cuando una compra incluye varios productos; no representa una cantidad.
+- **`Item`**: producto comprado. Es una variable cualitativa nominal, almacenada como texto (`character`).
+- **`date time`**: fecha y hora de la compra. Es una variable temporal, actualmente almacenada como texto; conviene convertirla a `POSIXct` o `POSIXlt`.
+- **`period day`**: franja del día de la compra, como mañana o tarde. Es una variable categórica con orden temporal, almacenada como texto (`character`).
+- **`weekday weekend`**: indica si la compra se realizó entre semana o en fin de semana. Es una variable cualitativa nominal binaria, almacenada como texto (`character`).
+
+```{r}
+library(readr)
+
+filename <- "data/bakery_sales_revised.csv"
+
+BreadBasket <- read.csv(
+  file = filename,
+  stringsAsFactors = FALSE,
+)
+
+BreadBasket
+
+```
+
+
 
