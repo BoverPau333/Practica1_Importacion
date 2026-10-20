@@ -95,7 +95,7 @@ head(Deposito[c("FECHA", "HORA")])
 
 save(
   Deposito,
-  file = "./results/Deposito.RData"
+  file = "./data/results/Deposito.RData"
 )
 ```
 
@@ -123,28 +123,53 @@ Lo cargo directamnte con readr no pide nada adicional:
 - **`period day`**: franja del día de la compra, como mañana o tarde. Es una variable categórica con orden temporal, almacenada como texto (`character`).
 - **`weekday weekend`**: indica si la compra se realizó entre semana o en fin de semana. Es una variable cualitativa nominal binaria, almacenada como texto (`character`).
 
+#### 2
+
 ```{r}
 library(readr)
 
 filename <- "data/bakery_sales_revised.csv"
 
 BreadBasket <- read.csv(
-  file = filename,
-  stringsAsFactors = FALSE,
+  filename,
+  stringsAsFactors = FALSE
 )
+
+#Arreglo el formato fecha
+BreadBasket$date_time <- as.POSIXlt(
+  BreadBasket$date_time,
+  format = "%m/%d/%Y %H:%M",
+  tz = "Europe/London"
+)
+
 
 save(
   Deposito,
-  file = "./results/BreadBasket.RData"
+  file = "./data/results/BreadBasket.RData"
 )
 
 BreadBasket
 
 ```
+### 3.2
 
+```{r}
+str(BreadBasket)
+head(BreadBasket)
+tail(BreadBasket)
+summary(BreadBasket)
+```
+
+## Ejercicio 4 Fichero SPSS PsychBike.sav
 
 ```{r}
 
-```
+library(haven)
 
+filename <- "data/PsychBike.sav"
+
+read_sav(filename)
+
+
+```
 
