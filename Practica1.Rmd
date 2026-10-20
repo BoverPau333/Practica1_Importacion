@@ -3,12 +3,10 @@ title: "Practica 1"
 author: "Pau Bover Femenias"
 date: "`r Sys.Date()`"
 output:
-  bookdown::pdf_document2:
+  pdf_document:
     toc: true
     toc_depth: 3
     number_sections: true
-    figure_caption: "Figura" # Referencias en castellano
-    table_caption: "Tabla"
   html_document:
     echo: true
     number_sections: true
@@ -18,10 +16,12 @@ output:
     echo: true
     number_sections: true
     toc: true
-  pdf_document:
+  bookdown::pdf_document2:
     toc: true
     toc_depth: 3
     number_sections: true
+    figure_caption: "Figura" # Referencias en castellano
+    table_caption: "Tabla"
   bookdown::html_document2:
     echo: true
     number_sections: true
@@ -148,7 +148,7 @@ save(
   file = "./data/results/BreadBasket.RData"
 )
 
-BreadBasket
+head(BreadBasket)
 
 ```
 ### 3.2
@@ -172,7 +172,7 @@ filename <- "data/PsychBike.sav"
 
 PsychBike <- read_sav(filename)
 
-PsychBike
+head(PsychBike)
 ```
 
 ```{r}
@@ -191,6 +191,7 @@ tail(PsychBike)
 summary(PsychBike)
 
 ```
+
 ## Ejercicio 5 Fichero data iris.zip
 
 ### 5.1
@@ -221,9 +222,9 @@ iris
 ### 6.1
 #### 1
 ```{r}
-help(read.table)
+#help(read.table)
 iris_data <- read.table(iris[3],sep=",")
-iris_data
+head(iris_data)
 ```
 #### 2
 ```{r}
@@ -247,6 +248,9 @@ head(iris_data)
 tail(iris_data)
 summary(iris_data)
 ```
+
+Dataset con los nombres cambiados como en la web
+
 ## Ejercicio 7
 
 ### 7.2
@@ -272,6 +276,7 @@ FileCodificado <- read_json(
 str(FileCodificado)
 
 ```
+Sin el simplifyVector te lo imprime sin simplificar devolviendo el dataset entero sin comprimir.
 
 ```{r}
 
@@ -293,6 +298,7 @@ summary(FileCodificado)
 
 ```
 
+Vemos como la mayoria de las varibles son char, expecto carburante,unidades y Peso_vivienda que son ints y codigo_postal y viviendas que son double.
 ## Ejercicio 8 Fichero JSON 
 
 ```{r}
@@ -304,7 +310,7 @@ iris_json <- read_json(
   simplifyVector = TRUE
 )
 
-help(fromJSON)
+#help(fromJSON)
 
 iris_json_2 <- fromJSON(
   filename,
@@ -312,8 +318,8 @@ iris_json_2 <- fromJSON(
 )
 
 
-iris_json
-iris_json_2
+head(iris_json)
+head(iris_json_2)
 ```
 
 #### 4
@@ -336,8 +342,12 @@ tail(iris_json)
 summary(iris_json)
 ```
 
+Vemos que estos datos son los mismos que los de el dataset anterior de Iris.
+
 ### 8.3
 #### 1
+
+Cargo Rdata y escribo el json
 
 ```{r}
 filename <- 'data/iris_json_v2.json'
@@ -345,7 +355,7 @@ filename <- 'data/iris_json_v2.json'
 load("./data/results/iris.RData")
 
 write_json(
-  iris,
+  iris_data,
   path = filename,
   pretty = TRUE
 )
@@ -354,9 +364,9 @@ write_json(
 #### 2
 
 ```{r}
-filename <- "data/iris_json_v2.json"
+filename <- "data/iris_json_v3.json"
 
-irisJSON <- toJSON(iris, pretty = TRUE)
+irisJSON <- toJSON(iris_data, pretty = TRUE)
 
 write_file(irisJSON, file = filename)
 
@@ -364,9 +374,10 @@ write_file(irisJSON, file = filename)
 
 ```{r}
 # Formato compacto
-cat(toJSON(head(iris), pretty = FALSE))
+cat(toJSON(head(iris_data), pretty = FALSE))
 
 # Formato con saltos de línea y sangrías
-cat(toJSON(head(iris), pretty = TRUE))
+cat(toJSON(head(iris_data), pretty = TRUE))
 ```
 
+Con el parametro Prety controlas si añadir saltos de línea y sangrías para ser mas facil de ver y entender.
