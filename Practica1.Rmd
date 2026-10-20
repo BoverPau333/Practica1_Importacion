@@ -217,3 +217,41 @@ iris
 ```
 
 ## Ejercicio 6
+
+### 6.1
+#### 1
+```{r}
+help(read.table)
+iris_data <- read.table(iris[3],sep=",")
+iris_data
+```
+#### 2
+```{r}
+names(iris_data) <- c("sepal length", "sepal width", "petal length","petal width","class")
+names(iris_data)
+```
+
+#### 3
+```{r}
+save(
+  iris_data,
+  file = "./data/results/iris.RData"
+)
+```
+
+### 6.2 
+
+```{r}
+str(iris_data)
+head(iris_data)
+tail(iris_data)
+summary(iris_data)
+```
+## Ejercicio 7
+
+### 7.1
+
+```{r}
+  
+```
+
