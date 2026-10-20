@@ -133,9 +133,18 @@ BreadBasket <- read.csv(
   stringsAsFactors = FALSE,
 )
 
+save(
+  Deposito,
+  file = "./results/BreadBasket.RData"
+)
+
 BreadBasket
 
 ```
 
+
+```{r}
+
+```
 
 
