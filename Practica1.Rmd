@@ -162,14 +162,58 @@ summary(BreadBasket)
 
 ## Ejercicio 4 Fichero SPSS PsychBike.sav
 
+### 4.1
+
 ```{r}
 
 library(haven)
 
 filename <- "data/PsychBike.sav"
 
-read_sav(filename)
+PsychBike <- read_sav(filename)
 
-
+PsychBike
 ```
 
+```{r}
+save(
+  PsychBike,
+  file = "./data/results/PsychBike.Rdata"
+)
+```
+
+### 4.2
+
+```{r}
+str(PsychBike)
+head(PsychBike)
+tail(PsychBike)
+summary(PsychBike)
+
+```
+## Ejercicio 5 Fichero data iris.zip
+
+### 5.1
+
+```{r}
+url <- "https://archive.ics.uci.edu/static/public/53/iris.zip"
+filename <- "data/iris.zip"
+
+download.file(
+  url = url,
+  destfile = filename,
+  mode = "wb"
+)
+```
+```{r}
+
+# Descomprimimos los archivos dentro de data
+iris <- unzip(
+  zipfile = filename,
+  exdir = "data"
+)
+
+iris
+```
+
+## Ejercicio 6
