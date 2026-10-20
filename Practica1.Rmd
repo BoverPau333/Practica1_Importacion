@@ -249,9 +249,124 @@ summary(iris_data)
 ```
 ## Ejercicio 7
 
-### 7.1
+### 7.2
 
 ```{r}
-  
+library(jsonlite)
+
+#help(read_json)
+
+filename <- "data/FileCodificado.json"
+
+
+###datosLista <- read_json(
+###  filename,
+###  simplifyVector = FALSE
+###)
+
+FileCodificado <- read_json(
+  filename,
+  simplifyVector = TRUE
+)
+
+str(FileCodificado)
+
+```
+
+```{r}
+
+save(
+  FileCodificado,
+  file = "./data/results/FileCodificado.RData"
+)
+
+```
+
+### 7.3
+
+```{r}
+
+str(FileCodificado)
+head(FileCodificado)
+tail(FileCodificado)
+summary(FileCodificado)
+
+```
+
+## Ejercicio 8 Fichero JSON 
+
+```{r}
+
+filename <- "data/iris_json.json"
+
+iris_json <- read_json(
+  filename,
+  simplifyVector = TRUE
+)
+
+help(fromJSON)
+
+iris_json_2 <- fromJSON(
+  filename,
+  simplifyVector = TRUE
+)
+
+
+iris_json
+iris_json_2
+```
+
+#### 4
+
+```{r}
+
+save(
+  iris_json,
+  file = "./data/results/iris_json.RData"
+)
+
+```
+
+### 8.2
+
+```{r}
+str(iris_json)
+head(iris_json)
+tail(iris_json)
+summary(iris_json)
+```
+
+### 8.3
+#### 1
+
+```{r}
+filename <- 'data/iris_json_v2.json'
+
+load("./data/results/iris.RData")
+
+write_json(
+  iris,
+  path = filename,
+  pretty = TRUE
+)
+```
+
+#### 2
+
+```{r}
+filename <- "data/iris_json_v2.json"
+
+irisJSON <- toJSON(iris, pretty = TRUE)
+
+write_file(irisJSON, file = filename)
+
+```
+
+```{r}
+# Formato compacto
+cat(toJSON(head(iris), pretty = FALSE))
+
+# Formato con saltos de línea y sangrías
+cat(toJSON(head(iris), pretty = TRUE))
 ```
 
